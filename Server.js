@@ -5,7 +5,7 @@ const path = require('path');
 
 app.get('/', (req, res) => {
     try {
-        res.status(200).sendFile(path.join(__dirname + '/placeholder.html'));
+        res.status(200).sendFile(path.join(__dirname + '/index.html'));
     }
     catch (err) {
         console.log(err);
@@ -16,5 +16,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
     console.log('Server is running on port http://localhost:8080');
-}
-);
+
+});

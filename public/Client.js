@@ -16,8 +16,6 @@ async function loadData() {
     }
 
 }
-loadData();
-
 
 // create event listener for dropdown menu
 // will need to have a button to set a date submission thing
@@ -30,7 +28,7 @@ function display_data(){
     // create a table to display data, then append to the body of the page when it exists
     // create a loop to iterate through the data and write it to the table
 
-    data.array.forEach(element => {
+    data.forEach(function(data) => {
         // write data to table
         // table will have to created here and appended to the body of the page
         // change htmlinner for things with id =  panel[x]
@@ -38,6 +36,6 @@ function display_data(){
         
     });
 }
-
+display_data();
 
 

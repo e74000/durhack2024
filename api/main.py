@@ -140,7 +140,7 @@ def predict():
 
 
 @app.route('/predict-week', methods=['GET'])
-def predict_wee():
+def predict_week():
     date = request.args.get('starting')
     if not date:
         return jsonify({"error": "Date parameter is required"}), 400

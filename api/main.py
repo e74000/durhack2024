@@ -5,6 +5,7 @@ from torch import nn
 from flask import Flask, jsonify, request
 from sklearn.preprocessing import MinMaxScaler
 from datetime import datetime, timedelta
+from flask_cors import CORS
 
 # Load the trained model and scalers
 device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
@@ -62,7 +63,7 @@ def create_sequences(features, target, seq_length, end_idx):
 
 
 app = Flask(__name__)
-
+CORS(app)
 
 def get_week_dates(date_str):
     # Convert the input string to a date

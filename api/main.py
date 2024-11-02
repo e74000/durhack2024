@@ -4,7 +4,7 @@ import torch
 from torch import nn
 from flask import Flask, jsonify, request
 from sklearn.preprocessing import MinMaxScaler
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Load the trained model and scalers
 device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
@@ -64,9 +64,30 @@ def create_sequences(features, target, seq_length, end_idx):
 app = Flask(__name__)
 
 
-# Updated preprocess_and_predict with fuzzy date matching
-def preprocess_and_predict(date_str):
+def get_week_dates(date_str):
+    # Convert the input string to a date
     target_date = datetime.strptime(date_str, '%Y-%m-%d')
+
+    # Find the Monday of the week containing the target date
+    start_of_week = target_date - timedelta(days=target_date.weekday())
+
+    # Generate the dates for the week, Monday to Sunday
+    week_dates = [(start_of_week + timedelta(days=i)).date() for i in range(7)]
+
+    return [date.strftime("%Y-%m-%d") for date in week_dates]
+
+
+def get_day_of_week(date_str):
+    # Convert the input string to a date
+    date = datetime.strptime(date_str, '%Y-%m-%d')
+
+    # Return the day of the week (e.g., 'Monday')
+    return date.strftime('%A')
+
+
+# Updated preprocess_and_predict with fuzzy date matching
+def preprocess_and_predict(date_str, offset_delta=timedelta(days=0)):
+    target_date = datetime.strptime(date_str, '%Y-%m-%d') + offset_delta
 
     # Find the closest date in the dataset
     if target_date not in df['date'].values:
@@ -98,6 +119,13 @@ def preprocess_and_predict(date_str):
     return prediction[0].tolist()
 
 
+def make_response(prediction):
+    return {
+        'Prediction_Mean_Temp': prediction[0],
+        'Prediction_Sunshine': prediction[1],
+        'Prediction_Precipitation': prediction[2]
+    }
+
 @app.route('/predict', methods=['GET'])
 def predict():
     date = request.args.get('date')
@@ -105,14 +133,21 @@ def predict():
         return jsonify({"error": "Date parameter is required"}), 400
 
     try:
-        prediction = preprocess_and_predict(date)
-        response = {
-            'date': date,
-            'Prediction_Mean_Temp': prediction[0],
-            'Prediction_Sunshine': prediction[1],
-            'Prediction_Precipitation': prediction[2]
-        }
-        return jsonify(response)
+        return jsonify(make_response(preprocess_and_predict(date)))
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/predict-week', methods=['GET'])
+def predict_wee():
+    date = request.args.get('starting')
+    if not date:
+        return jsonify({"error": "Date parameter is required"}), 400
+    try:
+        return jsonify({
+            get_day_of_week(day): make_response(preprocess_and_predict(day))
+            for day in get_week_dates(date)
+        })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

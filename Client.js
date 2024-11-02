@@ -1,6 +1,6 @@
 async function loadData() {
     try{
-        const repsonse = await fetch('http://localhost:5001/api?');
+        const repsonse = await fetch('http://127.0.0.1:5000');
 
         if (!response.ok) {
             throw new Error('Network response was not ok');

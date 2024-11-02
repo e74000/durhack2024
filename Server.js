@@ -3,6 +3,9 @@ const app = express();
 const port = 8080;
 const path = require('path');
 
+express.static.mime.define({'text/css': ['css']});
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', (req, res) => {
     try {
         res.status(200).sendFile(path.join(__dirname + '/index.html'));

@@ -42,7 +42,7 @@ def create_sequences(features, target, seq_length):
         ys.append(y)
     return np.array(xs), np.array(ys)
 
-seq_length = 3  # Sequence length
+seq_length = 14  # Sequence length
 X, y = create_sequences(features_scaled, target_scaled, seq_length)
 
 # Create Dataset and DataLoader
@@ -60,12 +60,12 @@ class TimeSeriesDataset(Dataset):
         return x, y
 
 dataset = TimeSeriesDataset(X, y)
-batch_size = 2
+batch_size = 5
 dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
 
 # Define the LSTM Model
 class LSTMModel(nn.Module):
-    def __init__(self, input_size, hidden_size, num_layers=1, output_size=3):
+    def __init__(self, input_size, hidden_size, num_layers=3, output_size=3):
         super(LSTMModel, self).__init__()
         self.hidden_size = hidden_size
         self.num_layers = num_layers
@@ -115,7 +115,7 @@ for epoch in range(num_epochs):
 
     print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
 
-torch.save(model.state_dict(), "model.something")
+torch.save(model.state_dict(), "model.npz")
 
 # Making Predictions and Saving Outputs
 model.eval()

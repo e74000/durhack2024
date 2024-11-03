@@ -3,79 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IntenseShakyTurkey</title>
+    <title>IntenseShakyTurkey Weather</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type = 'text/css' href="style.css"> 
-
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <ul class="nav nav-tabs nav-justified">
+    <div class="container app-container">
+        <h1 class="app-title text-center">Weekly Weather Forecast</h1>
+        <div class="card weather-card">
+            <ul class="nav nav-tabs nav-justified day-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="collapse" data-target="#panel1" aria-expanded="true" aria-controls="panel1">Mon</a>
+                    <a class="nav-link active" data-target="#panel1">Mon</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" data-target="#panel2" aria-expanded="false" aria-controls="panel2">Tue</a>
+                    <a class="nav-link" data-target="#panel2">Tue</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" data-target="#panel3" aria-expanded="false" aria-controls="panel3">Wed</a>
+                    <a class="nav-link" data-target="#panel3">Wed</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" data-target="#panel4" aria-expanded="false" aria-controls="panel4">Thu</a>
+                    <a class="nav-link" data-target="#panel4">Thu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" data-target="#panel5" aria-expanded="false" aria-controls="panel5">Fri</a>
+                    <a class="nav-link" data-target="#panel5">Fri</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" data-target="#panel6" aria-expanded="false" aria-controls="panel6">Sat</a>
+                    <a class="nav-link" data-target="#panel6">Sat</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" data-target="#panel7" aria-expanded="false" aria-controls="panel7">Sun</a>
+                    <a class="nav-link" data-target="#panel7">Sun</a>
                 </li>
             </ul>
 
-            <div id="accordion">
-                <div class="collapse panel" id="panel1" data-parent="#accordion">
-                    <div class="card card-body">
-                        This is the content of Panel 1.
+            <div id="accordion" class="weather-panels">
+                <div class="panel fade-panel" id="panel1">
+                    <div class="card-body day-panel">
+                        <div class="weather-icon"><i class="ri-sun-cloudy-line"></i></div>
+                        <div class="weather-info" id="panel1-content">Loading data for Monday...</div>
                     </div>
                 </div>
-                <div class="collapse panel" id="panel2" data-parent="#accordion">
-                    <div class="card card-body">
-                        This is the content of Panel 2.
+                <div class="panel fade-panel" id="panel2">
+                    <div class="card-body day-panel">
+                        <div class="weather-icon"><i class="ri-cloud-rain-line"></i></div>
+                        <div class="weather-info" id="panel2-content">Loading data for Tuesday...</div>
                     </div>
                 </div>
-                <div class="collapse panel" id="panel3" data-parent="#accordion">
-                    <div class="card card-body">
-                        This is the content of Panel 3.
+                <div class="panel fade-panel" id="panel3">
+                    <div class="card-body day-panel">
+                        <div class="weather-icon"><i class="ri-sun-line"></i></div>
+                        <div class="weather-info" id="panel3-content">Loading data for Wednesday...</div>
                     </div>
                 </div>
-                <div class="collapse panel" id="panel4" data-parent="#accordion">
-                    <div class="card card-body">
-                        This is the content of Panel 4.
+                <div class="panel fade-panel" id="panel4">
+                    <div class="card-body day-panel">
+                        <div class="weather-icon"><i class="ri-sun-cloudy-line"></i></div>
+                        <div class="weather-info" id="panel4-content">Loading data for Thursday...</div>
                     </div>
                 </div>
-                <div class="collapse panel" id="panel5" data-parent="#accordion">
-                    <div class="card card-body">
-                        This is the content of Panel 5.
+                <div class="panel fade-panel" id="panel5">
+                    <div class="card-body day-panel">
+                        <div class="weather-icon"><i class="ri-cloud-rain-line"></i></div>
+                        <div class="weather-info" id="panel5-content">Loading data for Friday...</div>
                     </div>
                 </div>
-                <div class="collapse panel" id="panel6" data-parent="#accordion">
-                    <div class="card card-body">
-                        This is the content of Panel 6.
+                <div class="panel fade-panel" id="panel6">
+                    <div class="card-body day-panel">
+                        <div class="weather-icon"><i class="ri-sun-line"></i></div>
+                        <div class="weather-info" id="panel6-content">Loading data for Saturday...</div>
                     </div>
                 </div>
-                <div class="collapse panel" id="panel7" data-parent="#accordion">
-                    <div class="card card-body">
-                        This is the content of Panel 7.
+                <div class="panel fade-panel" id="panel7">
+                    <div class="card-body day-panel">
+                        <div class="weather-icon"><i class="ri-sun-cloudy-line"></i></div>
+                        <div class="weather-info" id="panel7-content">Loading data for Sunday...</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src = "Client.js"></script>
+
+    <script src="client.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

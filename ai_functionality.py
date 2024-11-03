@@ -9,47 +9,53 @@ import os
 os.environ["DATAFORSEO_LOGIN"] = config("DATAFORSEO_LOGIN")
 os.environ["DATAFORSEO_PASSWORD"] = config("DATAFORSEO_PASSWORD")
 
+# Initialize the AI model
 model = ChatOpenAI(openai_api_key=config("OPENAI_API_KEY"))
 
+# Create the prompt template
 prompt = ChatPromptTemplate.from_template(
-    """Your are a very friendly and charming AI assistant. Help answer
-       the user questions in a friendly and funny tone. Use the provided context to answer the user question.
-       Your response should be in the language specified. Below are a list of traits you should demonstrate in your response:
+    """You are a highly intelligent and friendly AI assistant. Provide a clear, direct, and conversational response to the user's question using the context provided. Use the specified language and demonstrate the selected traits.
 
-   traits: {traits}
-
+   Traits: {traits}
    Language: {language}
-
    Human: {question}
-
    Context: {context}
 
    AI:""")
 
+# Create a chain to handle input/output
 chain = prompt | model | StrOutputParser()
 
 def generate_ai_reponse(
         language: str,
         traits: list,
-        user_prompt: str) -> str:
+        user_prompt: str) -> (str, list):
     """
-    Takes in prompt and generates a response based on the context.
+    Generates an AI response based on the provided user input, language, and traits.
 
-    :param user_prompt: String of the user prompt.
-    :param traits: List of traits the bot should uphold.
-    :param language: A string of the language the user wants to use.
+    :param language: Language for the response.
+    :param traits: List of traits the AI should demonstrate.
+    :param user_prompt: User's input query.
 
-    :returns: A dictionary of the context and a string of the AI response generated from the context.
+    :return: A tuple containing the AI response and a list of context dictionaries.
     """
     try:
+        # Initialize the DataForSeo API wrapper
         json_wrapper = DataForSeoAPIWrapper(
             top_count=3,
             json_result_types=["organic", "local_pack"],
             json_result_fields=["title", "description", "type", "text"],
         )
 
+        # Retrieve context from the API
         context = json_wrapper.results(user_prompt)
 
+        # Ensure descriptions are fully captured and not truncated
+        for item in context:
+            if "description" in item:
+                item["description"] = item["description"].strip()
+
+        # Generate AI response
         response = chain.invoke(
             {"question": user_prompt, "context": context, "language": language, "traits": traits}
         )
@@ -57,4 +63,4 @@ def generate_ai_reponse(
         return response, context
     except Exception as e:
         print(f"An error occurred: {e}")
-        return "", {}
+        return "An error occurred while generating a response. Please try again later.", []

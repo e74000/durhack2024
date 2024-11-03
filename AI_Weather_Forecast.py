@@ -19,7 +19,7 @@ with st.sidebar:
     traits = st.multiselect(
         "Select a trait(s) of the bot",
         [
-            'Funny', 'Rude', 'Normal', 'Black', 'White', 'News reporter', 
+            'Funny', 'Rude', 'Normal', 'News reporter', 
             'Childish', 'Mature', 'Charismatic', 'Compassion', 'Agreebleness', 
             'Creative', 'Optimism', 'Confident', 'Ambitious'
         ],

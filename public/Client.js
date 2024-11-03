@@ -19,9 +19,10 @@ function getWeatherIcon(temp, precip, sunshine) {
     }
 }
 
-async function loadData() {
+async function loadData(date) {
     try {
-        const response = await fetch('http://127.0.0.1:5000/predict-week?starting=1999-07-04');
+        console.log('Fetching data for', date);
+        const response = await fetch('http://127.0.0.1:5000/predict-week?starting=' + date);
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -85,5 +86,21 @@ function setupTabHighlighting() {
 }
 
 // Initialize data load and tab highlighting
-loadData();
+
+// Set up the date picker
+function getDatePicker() {
+    const date = document.getElementById('date');
+    date.addEventListener('change', function() {
+        var day = document.getElementById('date').valueAsDate;
+        console.log(day);
+        const formatted = `${day.getFullYear() - 20}-${
+        String(day.getMonth() + 1).padStart(2, '0')
+        }-${String(day.getDate()).padStart(2, '0')}`;
+        loadData(formatted);
+        });
+
+
+}
+
+getDatePicker();
 setupTabHighlighting();

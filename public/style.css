@@ -1,9 +1,156 @@
-body {
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+/* General Styling */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
     color: #333;
+    background: linear-gradient(135deg, #E3FDFD, #CBF1F5, #A6E3E9);
+    background-size: cover;
 }
 
-h1 {
-    color: #007BFF;
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-container {
+    padding: 30px;
+    max-width: 700px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    box-shadow: 0px 12px 50px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    text-align: center;
+}
+
+.app-title {
+    font-size: 2.2rem;
+    color: #0073e6;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+}
+
+/* Tab and Panel Styling */
+.day-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.day-tabs .nav-link {
+    font-size: 1rem;
+    color: #0073e6;
+    background: rgba(0, 115, 230, 0.1);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin: 0 4px;
+    border: none; /* Removed underline */
+    transition: background 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+}
+
+.day-tabs .nav-link:hover {
+    background: rgba(0, 115, 230, 0.2);
+}
+
+.nav-tabs {
+    border: none;
+}
+
+.day-tabs .nav-link.active {
+    background: #0073e6;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+}
+
+.weather-panels {
+    padding-top: 10px;
+}
+
+.day-panel {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+}
+
+.weather-icon {
+    font-size: 3.5rem;
+    color: #0073e6;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.weather-info {
+    font-size: 1rem;
+    color: #555;
+}
+
+.weather-info p {
+    margin: 8px 0;
+}
+
+/* Weather Card */
+.weather-card {
+    background: transparent;
+    border: none;
+    color: #0073e6;
+    font-weight: 500;
+}
+
+/* Fade-in Panel Styling */
+.fade-panel {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: translateY(10px);
+}
+
+.fade-panel.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Button Styling */
+.button {
+    padding: 12px 24px;
+    background-color: #0073e6;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.button:hover {
+    background-color: #005bb5;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .app-title {
+        font-size: 1.8rem;
+    }
+    .day-tabs .nav-link {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+    }
+    .weather-icon {
+        font-size: 2.5rem;
+    }
+    .weather-info {
+        font-size: 0.9rem;
+    }
 }

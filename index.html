@@ -11,6 +11,13 @@
 <body>
     <div class="container app-container">
         <h1 class="app-title text-center">Weekly Weather Forecast</h1>
+        <div class = "card weather-card">
+            <div class="card-body">
+                <label for = "Date">Date:</label>
+                <input type = "date" id = "date" name = "date" required>
+                <button id = "date-input" class = "btn btn-primary" onclick="getDatePicker()">Get Weather</button>
+            </div>
+        </div>
         <div class="card weather-card">
             <ul class="nav nav-tabs nav-justified day-tabs">
                 <li class="nav-item">

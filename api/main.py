@@ -30,7 +30,7 @@ class LSTMModel(nn.Module):
 
 # Instantiate the model and load weights
 model = LSTMModel(input_size=9, hidden_size=32, num_layers=2, output_size=3).to(device)
-model.load_state_dict(torch.load("model.something", map_location=device))
+model.load_state_dict(torch.load("model.npz", map_location=device))
 model.eval()
 
 # Load dataset and scalers
